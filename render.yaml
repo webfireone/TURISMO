@@ -8,16 +8,16 @@ services:
     autoDeploy: true
     envVars:
       - key: VITE_FIREBASE_API_KEY
-        value: AIzaSyDpaNWYpfAI45bMQKoOHzIGKWvESKVIx50
+        value: AIzaSyC4h_r_HAvtzA1DzmDrjQhKQc4GMMC7rC0
       - key: VITE_FIREBASE_AUTH_DOMAIN
-        value: tienda-de-ropa-35bea.firebaseapp.com
+        value: turismo-cee7d.firebaseapp.com
       - key: VITE_FIREBASE_PROJECT_ID
-        value: tienda-de-ropa-35bea
+        value: turismo-cee7d
       - key: VITE_FIREBASE_STORAGE_BUCKET
-        value: tienda-de-ropa-35bea.firebasestorage.app
+        value: turismo-cee7d.firebasestorage.app
       - key: VITE_FIREBASE_SENDER_ID
-        value: "961273079910"
+        value: "371944026595"
       - key: VITE_FIREBASE_APP_ID
-        value: 1:961273079910:web:0c82c93ab5895b8ad725a7
+        value: 1:371944026595:web:2044d794e25b372bfb70d6
       - key: VITE_FIREBASE_MEASUREMENT_ID
-        value: G-7KMX0D6WVW
+        value: G-ZNBXMKMLGY
