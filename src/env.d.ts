@@ -1,0 +1,69 @@
+/// <reference types="vite/client" />
+
+declare module "lucide-react" {
+  import type { FC, SVGProps } from "react"
+  export const Plane: FC<SVGProps<SVGSVGElement>>
+  export const Package: FC<SVGProps<SVGSVGElement>>
+  export const ClipboardList: FC<SVGProps<SVGSVGElement>>
+  export const BarChart3: FC<SVGProps<SVGSVGElement>>
+  export const Settings: FC<SVGProps<SVGSVGElement>>
+  export const AlertTriangle: FC<SVGProps<SVGSVGElement>>
+  export const FileUp: FC<SVGProps<SVGSVGElement>>
+  export const Sparkles: FC<SVGProps<SVGSVGElement>>
+  export const ShoppingCart: FC<SVGProps<SVGSVGElement>>
+  export const LayoutDashboard: FC<SVGProps<SVGSVGElement>>
+  export const Store: FC<SVGProps<SVGSVGElement>>
+  export const Tag: FC<SVGProps<SVGSVGElement>>
+  export const Layers: FC<SVGProps<SVGSVGElement>>
+  export const User: FC<SVGProps<SVGSVGElement>>
+  export const LogOut: FC<SVGProps<SVGSVGElement>>
+  export const FileText: FC<SVGProps<SVGSVGElement>>
+  export const Map: FC<SVGProps<SVGSVGElement>>
+  export const Sun: FC<SVGProps<SVGSVGElement>>
+  export const Compass: FC<SVGProps<SVGSVGElement>>
+  export const Search: FC<SVGProps<SVGSVGElement>>
+  export const ArrowRight: FC<SVGProps<SVGSVGElement>>
+  export const ArrowLeft: FC<SVGProps<SVGSVGElement>>
+  export const ChevronRight: FC<SVGProps<SVGSVGElement>>
+  export const Plus: FC<SVGProps<SVGSVGElement>>
+  export const Minus: FC<SVGProps<SVGSVGElement>>
+  export const Trash2: FC<SVGProps<SVGSVGElement>>
+  export const X: FC<SVGProps<SVGSVGElement>>
+  export const Check: FC<SVGProps<SVGSVGElement>>
+  export const MapPin: FC<SVGProps<SVGSVGElement>>
+  export const Calendar: FC<SVGProps<SVGSVGElement>>
+  export const Users: FC<SVGProps<SVGSVGElement>>
+  export const Star: FC<SVGProps<SVGSVGElement>>
+  export const Eye: FC<SVGProps<SVGSVGElement>>
+  export const DollarSign: FC<SVGProps<SVGSVGElement>>
+  export const TrendingUp: FC<SVGProps<SVGSVGElement>>
+  export const Globe: FC<SVGProps<SVGSVGElement>>
+  export const Briefcase: FC<SVGProps<SVGSVGElement>>
+  export const Shield: FC<SVGProps<SVGSVGElement>>
+  export const CreditCard: FC<SVGProps<SVGSVGElement>>
+  export const Headphones: FC<SVGProps<SVGSVGElement>>
+  export const Globe2: FC<SVGProps<SVGSVGElement>>
+  export const Mail: FC<SVGProps<SVGSVGElement>>
+  export const Lock: FC<SVGProps<SVGSVGElement>>
+  export const GoogleIcon: FC<SVGProps<SVGSVGElement>>
+  export const Upload: FC<SVGProps<SVGSVGElement>>
+  export const Download: FC<SVGProps<SVGSVGElement>>
+  export const Globe: FC<SVGProps<SVGSVGElement>>
+  export const FileSpreadsheet: FC<SVGProps<SVGSVGElement>>
+  export const Save: FC<SVGProps<SVGSVGElement>>
+  export const MessageSquare: FC<SVGProps<SVGSVGElement>>
+  export const Send: FC<SVGProps<SVGSVGElement>>
+  export const Phone: FC<SVGProps<SVGSVGElement>>
+  export const Info: FC<SVGProps<SVGSVGElement>>
+  export const AlertCircle: FC<SVGProps<SVGSVGElement>>
+  export const GripVertical: FC<SVGProps<SVGSVGElement>>
+  export const TrendingDown: FC<SVGProps<SVGSVGElement>>
+  export const Edit: FC<SVGProps<SVGSVGElement>>
+  export const Eye: FC<SVGProps<SVGSVGElement>>
+  export const EyeOff: FC<SVGProps<SVGSVGElement>>
+  export const Coffee: FC<SVGProps<SVGSVGElement>>
+  export const Hotel: FC<SVGProps<SVGSVGElement>>
+  export const Calendar: FC<SVGProps<SVGSVGElement>>
+}
+
+declare module "firebase/firestore"
