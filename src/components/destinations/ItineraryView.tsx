@@ -28,7 +28,7 @@ export function ItineraryView({ pkg }: { pkg: TravelPackage }) {
         <div className="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent" />
 
         <div className="space-y-6">
-          {pkg.itinerary.map((day, index) => (
+          {pkg.itinerary.map((day) => (
             <div key={day.day} className="relative pl-14">
               <div className="absolute left-[18px] top-3 w-3 h-3 rounded-full border-2 border-primary bg-background z-10" />
 
