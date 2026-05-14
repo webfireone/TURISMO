@@ -30,7 +30,7 @@ export const DEFAULT_PARAMS: GlobalParams = {
     contactWhatsApp: "5491133900101",
   },
   announcement: {
-    enabled: true,
+    enabled: false,
     text: "Reservá con 30 días de anticipación y obtené 10% OFF · 3 cuotas sin interés",
   },
 }

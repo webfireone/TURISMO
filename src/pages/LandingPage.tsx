@@ -261,39 +261,27 @@ export function LandingPage() {
         </StaggerReveal>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center mb-16">
-          <Reveal variant="blur-in" duration={0.8} className="text-[10px] font-semibold tracking-[0.4em] uppercase text-white/20 mb-4">Testimonios</Reveal>
-          <Reveal variant="fade-scale" delay={0.1} duration={0.7} className="font-display text-4xl md:text-6xl font-bold tracking-tight">
-            Lo que dicen <span className="gradient-text">nuestros viajeros</span>
-          </Reveal>
-        </div>
-        <StaggerReveal variant="fade-up" stagger={0.1} duration={0.5} threshold={0.1}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
+      <section className="max-w-7xl mx-auto px-6 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {testimonials.map((t, i) => (
-            <div key={i} className="p-6 rounded-2xl bg-card border border-primary/10 hover:border-primary/20 transition-all duration-300">
-              <div className="flex gap-1 mb-4">
+            <div key={i} className="p-5 rounded-2xl bg-card/50 border border-primary/10">
+              <div className="flex gap-1 mb-3">
                 {Array.from({ length: 5 }).map((_, j) => (
-                  <Star key={j} className={`h-4 w-4 ${j < t.rating ? "text-amber-400 fill-amber-400" : "text-muted"}`} />
+                  <Star key={j} className={`h-3 w-3 ${j < t.rating ? "text-amber-400 fill-amber-400" : "text-muted"}`} />
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground mb-4 italic">"{t.text}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-xs font-bold text-white">
+              <p className="text-sm text-muted-foreground mb-3 italic">"{t.text}"</p>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full gradient-primary flex items-center justify-center text-[10px] font-bold text-white">
                   {t.name[0]}
                 </div>
                 <div>
-                  <p className="text-sm font-medium">{t.name}</p>
-                  <p className="text-[10px] text-muted-foreground">{t.location}</p>
+                  <p className="text-xs font-medium">{t.name}</p>
                 </div>
               </div>
             </div>
           ))}
-        </StaggerReveal>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-6 pb-20">
+        </div>
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-8 md:p-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
