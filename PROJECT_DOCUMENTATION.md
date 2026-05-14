@@ -110,8 +110,8 @@ src/
 - **Fecha**: 2026-05-13
 - **Mensaje**: "feat: slower hero transition + darker palette"
 - **Cambios**: 
-  - Intervalo del hero: 5s → 8s
-  - Transición: 1.5s → 3s
+  - Intervalo del hero: 5s → 12s
+  - Transición: 1.5s → 5s
   - Fondo: #0d0d1a → #0a0a0b
   - Texto: #e8e8f0 → #fafafa
   - Cards: #161627 → #121214

@@ -73,7 +73,7 @@ function RotatingHero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length)
-    }, 8000)
+    }, 12000)
     return () => clearInterval(interval)
   }, [])
 
@@ -83,7 +83,7 @@ function RotatingHero() {
       {HERO_IMAGES.map((img, i) => (
         <div
           key={i}
-          className={`absolute inset-0 transition-opacity duration-[3000ms] ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-0 transition-opacity duration-[5000ms] ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
           style={{ zIndex: i === currentIndex ? 1 : 0 }}
         >
           <img 
