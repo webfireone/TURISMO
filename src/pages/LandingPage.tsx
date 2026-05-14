@@ -78,53 +78,55 @@ function RotatingHero() {
   }, [])
 
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-gradient-to-r from-sky-900 via-purple-900 to-slate-900" />
       {HERO_IMAGES.map((img, i) => (
         <div
           key={i}
           className={`absolute inset-0 transition-opacity duration-1500 ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
+          style={{ zIndex: i === currentIndex ? 1 : 0 }}
         >
           <img 
             src={img} 
             alt="Destino" 
             className="w-full h-full object-cover"
             loading={i === 0 ? "eager" : "lazy"}
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         </div>
       ))}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
     </div>
   )
 }
 
 function RotatingBanner({ banner }: { banner: typeof DESTINATION_BANNERS[0] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % banner.images.length)
-      setImgError(false)
     }, 4000)
     return () => clearInterval(interval)
   }, [banner.images.length])
 
-  return (
-    <div className="relative h-72 rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-zinc-800">
-      {!imgError && banner.images.map((img, i) => (
+  const bannerGradients: Record<string, string> = {
+  Caribe: "bg-gradient-to-br from-cyan-600 via-blue-700 to-slate-800",
+  Europa: "bg-gradient-to-br from-rose-600 via-purple-700 to-slate-800",
+  Patagonia: "bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-800",
+}
+
+return (
+    <div className={`relative h-72 rounded-2xl overflow-hidden group cursor-pointer border border-white/5 ${bannerGradients[banner.title] || "bg-zinc-800"}`}>
+      {banner.images.map((img, i) => (
         <img
           key={i}
           src={img}
           alt={`${banner.title} ${i + 1}`}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
-          onError={() => setImgError(true)}
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
         />
       ))}
-      {imgError && (
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-700 to-zinc-800 flex items-center justify-center">
-          <span className="text-zinc-400 text-sm">Imagen no disponible</span>
-        </div>
-      )}
       <div className={`absolute inset-0 bg-gradient-to-b ${banner.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-500`} />
       <div className="absolute inset-0 bg-black/20" />
       <div className="absolute bottom-6 left-6 right-6">
