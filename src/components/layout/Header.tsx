@@ -142,13 +142,13 @@ export function Header() {
         </div>
 
         <div className="md:hidden flex flex-col relative z-50">
-          <div className="flex overflow-x-auto px-3 pb-1 gap-1 no-scrollbar">
+          <div className="flex overflow-x-auto px-3 pb-1 gap-1 no-scrollbar touch-manipulation">
             {allLinks.map(link => {
               const isActive = !link.external && (link.to === "/" ? location.pathname === "/" : location.pathname.startsWith(link.to))
               return (
                 <button key={link.to} 
-                  onClick={() => navigate(link.to)}
-                  className={cn("flex items-center gap-1 px-3 py-2 text-[11px] font-medium rounded-lg whitespace-nowrap transition-all duration-200 shrink-0",
+                  onClick={(e) => { e.preventDefault(); navigate(link.to); }}
+                  className={cn("flex items-center gap-1 px-3 py-2 text-[11px] font-medium rounded-lg whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer",
                     isActive ? "bg-secondary text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
                 >
