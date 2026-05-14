@@ -200,6 +200,13 @@ export function LandingPage() {
   const [email, setEmail] = useState("")
   const [subscribed, setSubscribed] = useState(false)
 
+  const stats = [
+    { number: "15+", label: "Años de experiencia" },
+    { number: "50K+", label: "Viajeros satisfechos" },
+    { number: "150+", label: "Destinos disponibles" },
+    { number: "24/7", label: "Acompañamiento" },
+  ]
+
   useEffect(() => {
     if (isAdmin) navigate("/admin", { replace: true })
   }, [isAdmin, navigate])
@@ -218,6 +225,17 @@ export function LandingPage() {
     <div>
       <section className="px-6 pt-8">
         <HeroSection />
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center">
+              <div className="font-display text-4xl md:text-5xl font-bold gradient-text mb-2">{stat.number}</div>
+              <div className="text-sm text-muted-foreground">{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-20">

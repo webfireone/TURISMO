@@ -112,6 +112,7 @@ src/
 - **Cambios**: 
   - Intervalo del hero: 5s → 12s
   - Transición: 1.5s → 5s
+- **Stats en Landing**: Agregada sección con 15+ años, 50K+ viajeros, 150+ destinos, 24/7
   - Fondo: #0d0d1a → #0a0a0b
   - Texto: #e8e8f0 → #fafafa
   - Cards: #161627 → #121214
