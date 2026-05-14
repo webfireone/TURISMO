@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://siviajes.onrender.com/sitemap.xml

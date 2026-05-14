@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 import { ShoppingCart, Trash2, ArrowLeft, Plus, Minus, Calendar, MapPin } from "lucide-react"
 import type { Booking, BookingItem } from "@/types"
 
@@ -70,34 +71,45 @@ export function CartPage() {
         </div>
 
         <div className="space-y-4">
-          {items.map(item => (
-            <Card key={item.packageId} className="border-primary/10">
-              <CardContent className="p-4 flex items-center gap-4">
-                <img src={item.imageUrl} alt={item.packageName} className="w-20 h-20 rounded-xl object-cover shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-display font-semibold truncate">{item.packageName}</h3>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <MapPin className="h-3 w-3" /> {item.destination} · {item.duration}
-                  </p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Calendar className="h-3 w-3" /> {item.startDate}
-                  </p>
-                  <p className="text-sm font-bold text-primary mt-1">{item.price.toLocaleString("es-AR")} ARS</p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <button onClick={() => updateTravelers(item.packageId, -1)} className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80"><Minus className="h-3 w-3" /></button>
-                  <span className="text-sm font-semibold w-6 text-center">{item.travelers}</span>
-                  <button onClick={() => updateTravelers(item.packageId, 1)} className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80"><Plus className="h-3 w-3" /></button>
-                </div>
-                <div className="text-right shrink-0">
-                  <p className="text-lg font-bold text-primary">{(item.price * item.travelers).toLocaleString("es-AR")} ARS</p>
-                </div>
-                <button onClick={() => removeItem(item.packageId)} className="text-muted-foreground hover:text-destructive transition-colors shrink-0">
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </CardContent>
-            </Card>
-          ))}
+          <AnimatePresence>
+            {items.map(item => (
+              <motion.div
+                key={item.packageId}
+                layout
+                initial={{ opacity: 0, x: -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 40 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="border-primary/10">
+                  <CardContent className="p-4 flex items-center gap-4">
+                    <img src={item.imageUrl} alt={item.packageName} className="w-20 h-20 rounded-xl object-cover shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-display font-semibold truncate">{item.packageName}</h3>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                        <MapPin className="h-3 w-3" /> {item.destination} · {item.duration}
+                      </p>
+                      <p className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="h-3 w-3" /> {item.startDate}
+                      </p>
+                      <p className="text-sm font-bold text-primary mt-1">{item.price.toLocaleString("es-AR")} ARS</p>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <button onClick={() => updateTravelers(item.packageId, -1)} className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80"><Minus className="h-3 w-3" /></button>
+                      <span className="text-sm font-semibold w-6 text-center">{item.travelers}</span>
+                      <button onClick={() => updateTravelers(item.packageId, 1)} className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center hover:bg-muted/80"><Plus className="h-3 w-3" /></button>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="text-lg font-bold text-primary">{(item.price * item.travelers).toLocaleString("es-AR")} ARS</p>
+                    </div>
+                    <button onClick={() => removeItem(item.packageId)} className="text-muted-foreground hover:text-destructive transition-colors shrink-0">
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 rounded-2xl bg-card border border-primary/10">

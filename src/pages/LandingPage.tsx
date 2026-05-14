@@ -5,8 +5,127 @@ import { Input } from "@/components/ui/input"
 import { db } from "@/lib/firebase"
 import { useAuth } from "@/context/AuthContext"
 import { collection, addDoc } from "firebase/firestore"
+import { motion } from "framer-motion"
 import { Reveal, StaggerReveal } from "@/hooks/useScrollReveal"
 import { Plane, Shield, CreditCard, Headphones, Star, ArrowRight, Compass, Globe2 } from "lucide-react"
+
+const HERO_IMAGES = [
+  "https://images.pexels.com/photos/7589674/pexels-photo-7589674.jpeg",
+  "https://images.pexels.com/photos/13688695/pexels-photo-13688695.jpeg",
+  "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg",
+  "https://images.pexels.com/photos/2082103/pexels-photo-2082103.jpeg",
+  "https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg",
+  "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg",
+  "https://images.pexels.com/photos/3616234/pexels-photo-3616234.jpeg",
+  "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+  "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg",
+  "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+  "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg",
+  "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+  "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg",
+  "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+  "https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg",
+  "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg",
+  "https://images.pexels.com/photos/2082103/pexels-photo-2082103.jpeg",
+  "https://images.pexels.com/photos/13688695/pexels-photo-13688695.jpeg",
+  "https://images.pexels.com/photos/3616234/pexels-photo-3616234.jpeg",
+  "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+  "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg",
+  "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+]
+
+const DESTINATION_BANNERS = [
+  {
+    title: "Caribe",
+    desc: "Playas paradisíacas",
+    images: [
+      "https://images.pexels.com/photos/7589674/pexels-photo-7589674.jpeg",
+      "https://images.pexels.com/photos/14212425/pexels-photo-14212425.jpeg",
+      "https://images.pexels.com/photos/13688695/pexels-photo-13688695.jpeg",
+    ],
+    gradient: "from-sky-600/80 via-sky-600/20 to-transparent",
+  },
+  {
+    title: "Europa",
+    desc: "Cultura e historia",
+    images: [
+      "https://images.pexels.com/photos/2082103/pexels-photo-2082103.jpeg",
+      "https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg",
+      "https://images.pexels.com/photos/1388030/pexels-photo-1388030.jpeg",
+    ],
+    gradient: "from-rose-600/80 via-rose-600/20 to-transparent",
+  },
+  {
+    title: "Patagonia",
+    desc: "Aventura natural",
+    images: [
+      "https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg",
+      "https://images.pexels.com/photos/3616234/pexels-photo-3616234.jpeg",
+      "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg",
+    ],
+    gradient: "from-emerald-600/80 via-emerald-600/20 to-transparent",
+  },
+]
+
+function RotatingHero() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="absolute inset-0">
+      {HERO_IMAGES.map((img, i) => (
+        <div
+          key={i}
+          className={`absolute inset-0 transition-opacity duration-1500 ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
+        >
+          <img src={img} alt="Destino" className="w-full h-full object-cover" />
+        </div>
+      ))}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+    </div>
+  )
+}
+
+function RotatingBanner({ banner }: { banner: typeof DESTINATION_BANNERS[0] }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % banner.images.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [banner.images.length])
+
+  return (
+    <div className="relative h-72 rounded-2xl overflow-hidden group cursor-pointer border border-white/5">
+      {banner.images.map((img, i) => (
+        <img
+          key={i}
+          src={img}
+          alt={`${banner.title} ${i + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
+        />
+      ))}
+      <div className={`absolute inset-0 bg-gradient-to-b ${banner.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-500`} />
+      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute bottom-6 left-6 right-6">
+        <h3 className="font-display text-2xl font-bold text-white mb-1">{banner.title}</h3>
+        <p className="text-sm text-white/70">{banner.desc}</p>
+      </div>
+      <div className="absolute top-3 right-3 flex gap-1.5">
+        {banner.images.map((_, i) => (
+          <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentIndex ? "bg-white w-4" : "bg-white/40"}`} />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const testimonials = [
   { name: "Ana G.", location: "Buenos Aires", text: "El viaje a Europa fue increíble. Superó todas mis expectativas.", rating: 5 },
@@ -15,8 +134,14 @@ const testimonials = [
 ]
 
 function HeroSection() {
+  const navigate = useNavigate()
   return (
-    <div className="relative min-h-[70vh] flex items-center justify-center overflow-hidden rounded-3xl hero-grid">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="relative min-h-[70vh] flex items-center justify-center overflow-hidden rounded-3xl hero-grid">
+      <RotatingHero />
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
       <div className="relative z-10 text-center max-w-3xl mx-auto px-6 py-20">
         <Reveal variant="blur-in" duration={0.8}>
@@ -39,18 +164,18 @@ function HeroSection() {
         </Reveal>
         <Reveal variant="fade-up" delay={0.35} duration={0.5}>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button size="lg" onClick={() => window.location.href = "/catalog"} className="btn-shine text-base px-8">
+            <Button size="lg" onClick={() => navigate("/catalog")} className="btn-shine text-base px-8">
               Explorar paquetes
               <ArrowRight className="h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => window.location.href = "/destinations"} className="text-base px-8">
+            <Button size="lg" variant="outline" onClick={() => navigate("/destinations")} className="text-base px-8">
               <Compass className="h-5 w-5" />
               Destinos
             </Button>
           </div>
         </Reveal>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -113,20 +238,9 @@ export function LandingPage() {
         <StaggerReveal variant="fade-up" stagger={0.1} duration={0.6} threshold={0.1}
           className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          {[
-            { title: "Caribe", desc: "Playas paradisíacas", gradient: "from-sky-600/80 via-sky-600/20 to-transparent" },
-            { title: "Europa", desc: "Cultura e historia", gradient: "from-rose-600/80 via-rose-600/20 to-transparent" },
-            { title: "Patagonia", desc: "Aventura natural", gradient: "from-emerald-600/80 via-emerald-600/20 to-transparent" },
-          ].map((item, i) => (
-            <div key={i} className="relative h-72 rounded-2xl overflow-hidden group cursor-pointer border border-white/5"
-              onClick={() => navigate("/catalog")}
-            >
-              <div className={`absolute inset-0 bg-gradient-to-b ${item.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-500`} />
-              <div className="absolute inset-0 bg-black/20" />
-              <div className="absolute bottom-6 left-6 right-6">
-                <h3 className="font-display text-2xl font-bold text-white mb-1">{item.title}</h3>
-                <p className="text-sm text-white/70">{item.desc}</p>
-              </div>
+          {DESTINATION_BANNERS.map((banner, i) => (
+            <div key={i} onClick={() => navigate("/catalog")}>
+              <RotatingBanner banner={banner} />
             </div>
           ))}
         </StaggerReveal>
@@ -178,9 +292,13 @@ export function LandingPage() {
               </Reveal>
             </div>
             <div className="shrink-0">
-              <div className="w-32 h-32 rounded-full gradient-primary/20 flex items-center justify-center animate-float">
+              <motion.div
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="w-32 h-32 rounded-full gradient-primary/20 flex items-center justify-center"
+              >
                 <Plane className="h-16 w-16 text-primary" />
-              </div>
+              </motion.div>
             </div>
           </div>
         </Card>

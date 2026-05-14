@@ -5,7 +5,7 @@ import type { TravelPackage, GlobalParams, Booking } from "@/types"
 import { MOCK_PACKAGES, DEFAULT_PARAMS } from "@/lib/constants"
 import { addBooking } from "@/store/bookingsStore"
 
-const USE_MOCK = !import.meta.env.VITE_FIREBASE_API_KEY || import.meta.env.VITE_FIREBASE_API_KEY === "demo-api-key"
+const USE_MOCK = true // Forzamos uso de MOCK_PACKAGES para populate local
 
 async function fetchCollection<T>(path: string, fallback: T[]): Promise<T[]> {
   if (USE_MOCK) return fallback

@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react"
 
 export function CursorGlow() {
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+  if (isTouchDevice) return null
+
   const glowRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number>(0)
   const posRef = useRef({ x: -999, y: -999 })

@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Plane } from "lucide-react"
 
 export function LoginPage() {
   const { signIn, signUp, signInWithGoogle, resetPassword } = useAuth()
@@ -46,8 +45,8 @@ export function LoginPage() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <Card className="max-w-md w-full border-primary/20">
         <CardHeader className="text-center">
-          <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mx-auto mb-4">
-            <Plane className="h-6 w-6 text-white" />
+          <div className="w-12 h-12 rounded-xl overflow-hidden mx-auto mb-4 shadow-lg shadow-primary/25 ring-2 ring-primary/20">
+            <img src="/logo.jpeg" alt="SI VIAJES" className="w-full h-full object-cover" />
           </div>
           <CardTitle className="text-xl">{mode === "login" ? "Iniciar sesión" : "Crear cuenta"}</CardTitle>
         </CardHeader>

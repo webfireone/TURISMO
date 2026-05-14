@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { AuthProvider } from "@/context/AuthContext"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { AnimatePresence, motion } from "framer-motion"
 import { useParamsStore } from "@/store/paramsStore"
+import { useSiteTheme } from "@/hooks/useSiteTheme"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,15 +33,58 @@ const ConfigPage = lazy(() => import("@/pages/ConfigPage").then(m => ({ default:
 
 function PageLoading() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="min-h-screen flex items-center justify-center"
+    >
       <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-    </div>
+    </motion.div>
   )
+}
+
+const PAGE_TITLES: Record<string, string> = {
+  "/": "SI VIAJES — Agencia de Viajes",
+  "/catalog": "Paquetes Turísticos — SI VIAJES",
+  "/destinations": "Destinos — SI VIAJES",
+  "/itineraries": "Itinerarios — SI VIAJES",
+  "/cart": "Carrito de Reservas — SI VIAJES",
+  "/contact": "Contacto — SI VIAJES",
+  "/login": "Iniciar Sesión — SI VIAJES",
+  "/admin": "Admin — SI VIAJES",
+  "/dashboard": "Dashboard — SI VIAJES",
+  "/packages": "Administrar Paquetes — SI VIAJES",
+  "/bookings": "Reservas — SI VIAJES",
+  "/alerts": "Alertas — SI VIAJES",
+  "/import-export": "Importar/Exportar — SI VIAJES",
+  "/marketing": "Marketing — SI VIAJES",
+  "/config": "Configuración — SI VIAJES",
 }
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    const title = pathname.startsWith("/package/")
+      ? "Detalle del Paquete — SI VIAJES"
+      : PAGE_TITLES[pathname] || "SI VIAJES — Agencia de Viajes"
+    document.title = title
+  }, [pathname])
+  return null
+}
+
+function ThemeApplier() {
+  const { themeFromFirestore } = useSiteTheme()
+  useEffect(() => {
+    if (!themeFromFirestore) return
+    const { colors } = themeFromFirestore
+    const root = document.documentElement
+    Object.entries(colors).forEach(([key, value]) => {
+      const cssVar = `--color-${key.replace(/([A-Z])/g, "-$1").toLowerCase()}`
+      root.style.setProperty(cssVar, value)
+    })
+  }, [themeFromFirestore])
   return null
 }
 
@@ -55,8 +100,10 @@ export default function App() {
       <BrowserRouter>
         <AuthProvider>
           <FirestoreSync />
+          <ThemeApplier />
           <ScrollToTop />
           <Suspense fallback={<PageLoading />}>
+            <AnimatePresence mode="wait">
             <Routes>
               <Route element={<AppLayout />}>
                 <Route index element={<LandingPage />} />
@@ -78,6 +125,7 @@ export default function App() {
                 <Route path="*" element={<NotFoundPage />} />
               </Route>
             </Routes>
+            </AnimatePresence>
           </Suspense>
         </AuthProvider>
       </BrowserRouter>

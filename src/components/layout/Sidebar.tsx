@@ -24,8 +24,8 @@ export function Sidebar() {
           <Plane className="h-5 w-5 text-white" />
         </div>
         <div>
-          <span className="font-display text-lg font-semibold tracking-tight">Turismo</span>
-          <span className="block text-[10px] text-muted-foreground tracking-[0.2em] uppercase">{isAdmin ? "Admin Panel" : "Viajes"}</span>
+          <span className="font-display text-lg font-semibold tracking-tight">SI VIAJES</span>
+          <span className="block text-[10px] text-muted-foreground tracking-[0.2em] uppercase">{isAdmin ? "Admin SI VIAJES" : "Viajes"}</span>
         </div>
       </div>
 

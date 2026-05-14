@@ -14,7 +14,7 @@ export function PackageCard({ pkg, viewMode = "grid" }: PackageCardProps) {
 
   return (
     <div
-      onClick={() => navigate(`/catalog/${pkg.id}`)}
+      onClick={() => navigate(`/package/${pkg.id}`)}
       className={cn(
         "group cursor-pointer rounded-2xl overflow-hidden border border-primary/10 bg-card hover:border-primary/20 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10",
         viewMode === "grid" ? "flex flex-col" : "flex flex-row"

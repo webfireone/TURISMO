@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Outlet } from "react-router-dom"
+import { ViewTransitionOutlet } from "./ViewTransitionOutlet"
 import { Header } from "./Header"
 import { SmoothScroll } from "./SmoothScroll"
 
@@ -19,10 +19,10 @@ export function AppLayout() {
       <div className="min-h-screen relative" style={{ background: "var(--color-background)" }}>
         <Header />
         <main className="relative z-10">
-          <Outlet />
+          <ViewTransitionOutlet />
         </main>
 
-        <a href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || "5491122618116"}`}
+        <a href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || "5491133900101"}`}
           target="_blank" rel="noopener noreferrer"
           onMouseEnter={() => setWaHovered(true)} onMouseLeave={() => setWaHovered(false)}
           className="fixed bottom-6 left-6 z-50 flex items-center gap-0 group" aria-label="Contactar por WhatsApp"
