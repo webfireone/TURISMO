@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom"
 interface PackageCardProps {
   pkg: TravelPackage
   viewMode?: "grid" | "list"
+  className?: string
 }
 
-export function PackageCard({ pkg, viewMode = "grid" }: PackageCardProps) {
+export function PackageCard({ pkg, viewMode = "grid", className }: PackageCardProps) {
   const navigate = useNavigate()
   const isFullyBooked = pkg.availableSpots <= 0
 
@@ -17,7 +18,8 @@ export function PackageCard({ pkg, viewMode = "grid" }: PackageCardProps) {
       onClick={() => navigate(`/package/${pkg.id}`)}
       className={cn(
         "group cursor-pointer rounded-2xl overflow-hidden border border-primary/10 bg-card hover:border-primary/20 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10",
-        viewMode === "grid" ? "flex flex-col" : "flex flex-row"
+        viewMode === "grid" ? "flex flex-col" : "flex flex-row",
+        className
       )}
     >
       <div className={cn("relative overflow-hidden", viewMode === "grid" ? "h-52" : "w-48 h-40 shrink-0")}>
@@ -25,7 +27,9 @@ export function PackageCard({ pkg, viewMode = "grid" }: PackageCardProps) {
           src={pkg.imageUrl}
           alt={pkg.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }}
         />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-primary hidden" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         {pkg.featured && (
           <div className="absolute top-3 left-3">

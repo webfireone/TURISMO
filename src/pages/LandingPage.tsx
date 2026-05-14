@@ -239,6 +239,9 @@ export function LandingPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-6 pb-10">
+        <div className="text-center mb-8">
+          <h2 className="font-display text-3xl md:text-4xl font-bold">Comentarios de nuestros clientes</h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {testimonials.map((t, i) => (
             <div key={i} className="p-5 rounded-2xl bg-card/50 border border-primary/10">
@@ -260,6 +263,9 @@ export function LandingPage() {
           ))}
         </div>
 
+        <div className="text-center mb-6">
+          <h2 className="font-display text-2xl md:text-3xl font-bold">¿Por qué elegirnos?</h2>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {[
             { icon: Shield, title: "Seguro", desc: "Viajá protegido" },

@@ -7,15 +7,6 @@ import type { TravelPackage } from "@/types"
 
 const CATEGORIES = ["Todos", "Playa", "Aventura", "Cultural", "Romántico", "Familiar", "Lujo", "Ecoturismo"]
 
-const CARD_PATTERN: string[] = [
-  "hero", "regular", "tall", "regular", "regular", "regular", "tall",
-  "tall", "regular", "regular", "regular", "tall",
-]
-
-function getCardSize(index: number): string {
-  return CARD_PATTERN[index % CARD_PATTERN.length]
-}
-
 export function CatalogView({ packages }: { packages: TravelPackage[] }) {
   const [search, setSearch] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Todos")
@@ -37,6 +28,11 @@ export function CatalogView({ packages }: { packages: TravelPackage[] }) {
     if (sortBy === "price-asc") return a.price - b.price
     if (sortBy === "price-desc") return b.price - a.price
     if (sortBy === "name") return a.name.localeCompare(b.name)
+    if (sortBy === "destination") return a.destination.localeCompare(b.destination)
+    if (sortBy === "default") {
+      if (a.featured === b.featured) return a.price - b.price
+      return a.featured ? -1 : 1
+    }
     return 0
   })
 
@@ -47,8 +43,9 @@ export function CatalogView({ packages }: { packages: TravelPackage[] }) {
         <Select options={[{ value: "Todos", label: "Todos los destinos" }, ...destinations.map(d => ({ value: d, label: d }))]}
           value={selectedDestination} onChange={e => setSelectedDestination(e.target.value)} className="w-44" />
         <Select options={[
-          { value: "default", label: "Ordenar por" }, { value: "price-asc", label: "Menor precio" },
+          { value: "default", label: "Destacados" }, { value: "price-asc", label: "Menor precio" },
           { value: "price-desc", label: "Mayor precio" }, { value: "name", label: "Nombre" },
+          { value: "destination", label: "Destino" },
         ]} value={sortBy} onChange={e => setSortBy(e.target.value)} className="w-40" />
       </div>
 
@@ -64,15 +61,12 @@ export function CatalogView({ packages }: { packages: TravelPackage[] }) {
         ))}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-sm:auto-rows-auto auto-rows-[420px]">
-        {sorted.map((pkg, i) => {
-          const size = getCardSize(i)
-          return (
-            <div key={pkg.id} className={`${size === "hero" ? "col-span-2 row-span-2 max-sm:col-span-2 max-sm:row-span-1" : size === "tall" ? "col-span-1 row-span-2 max-sm:row-span-1" : "col-span-1 row-span-1"}`}>
-              <PackageCard pkg={pkg} />
-            </div>
-          )
-        })}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-sm:auto-rows-auto">
+        {sorted.map((pkg) => (
+          <div key={pkg.id}>
+            <PackageCard pkg={pkg} />
+          </div>
+        ))}
       </div>
 
       {sorted.length === 0 && (

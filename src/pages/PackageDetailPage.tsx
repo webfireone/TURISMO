@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { MapPin, Users, Check, X, ArrowLeft, Plus, Minus } from "lucide-react"
+import { X as XIcon } from "lucide-react"
 import { useCartStore } from "@/store/cartStore"
 import { ItineraryView } from "@/components/destinations/ItineraryView"
 
@@ -43,7 +44,11 @@ export function PackageDetailPage() {
         </button>
 
         <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden mb-8">
-          <img src={pkg.imageUrl} alt={pkg.name} className="w-full h-full object-cover" />
+          <img src={pkg.imageUrl} alt={pkg.name} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling?.classList.remove('hidden'); }} />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-primary hidden" />
+          <button onClick={() => navigate("/catalog")} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/60 transition-colors">
+            <XIcon className="h-5 w-5" />
+          </button>
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6">
             <div className="flex items-center gap-2 text-white/60 text-xs mb-1">
@@ -62,6 +67,19 @@ export function PackageDetailPage() {
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed">{pkg.description}</p>
+
+            {pkg.images && pkg.images.length > 1 && (
+              <div>
+                <h3 className="text-xs font-semibold text-muted-foreground tracking-wider uppercase mb-4">Más imágenes</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {pkg.images.slice(1).map((img, i) => (
+                    <div key={i} className="relative h-32 md:h-40 rounded-xl overflow-hidden bg-muted">
+                      <img src={img} alt={`${pkg.name} ${i + 2}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="border-primary/10">

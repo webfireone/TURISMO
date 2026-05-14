@@ -144,12 +144,11 @@ export function Header() {
         <div className="md:hidden flex flex-col relative z-50">
           <div className="flex overflow-x-auto px-3 pb-1 gap-1 no-scrollbar">
             {allLinks.map(link => {
-              const isActive = !link.external && location.pathname === link.to
+              const isActive = !link.external && (link.to === "/" ? location.pathname === "/" : location.pathname.startsWith(link.to))
               return (
                 <button key={link.to} 
-                  onClick={(e) => { e.stopPropagation(); navigate(link.to) }}
-                  style={{ touchAction: 'manipulation' }}
-                  className={cn("flex items-center gap-1 px-3 py-2 text-[11px] font-medium rounded-lg whitespace-nowrap transition-all duration-200 shrink-0 z-50 relative",
+                  onClick={() => navigate(link.to)}
+                  className={cn("flex items-center gap-1 px-3 py-2 text-[11px] font-medium rounded-lg whitespace-nowrap transition-all duration-200 shrink-0",
                     isActive ? "bg-secondary text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
                 >
