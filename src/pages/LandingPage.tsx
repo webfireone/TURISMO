@@ -78,13 +78,18 @@ function RotatingHero() {
   }, [])
 
   return (
-    <div className="absolute inset-0">
+    <div className="absolute inset-0 -z-10">
       {HERO_IMAGES.map((img, i) => (
         <div
           key={i}
           className={`absolute inset-0 transition-opacity duration-1500 ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
         >
-          <img src={img} alt="Destino" className="w-full h-full object-cover" />
+          <img 
+            src={img} 
+            alt="Destino" 
+            className="w-full h-full object-cover"
+            loading={i === 0 ? "eager" : "lazy"}
+          />
         </div>
       ))}
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
@@ -94,24 +99,32 @@ function RotatingHero() {
 
 function RotatingBanner({ banner }: { banner: typeof DESTINATION_BANNERS[0] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % banner.images.length)
+      setImgError(false)
     }, 4000)
     return () => clearInterval(interval)
   }, [banner.images.length])
 
   return (
-    <div className="relative h-72 rounded-2xl overflow-hidden group cursor-pointer border border-white/5">
-      {banner.images.map((img, i) => (
+    <div className="relative h-72 rounded-2xl overflow-hidden group cursor-pointer border border-white/5 bg-zinc-800">
+      {!imgError && banner.images.map((img, i) => (
         <img
           key={i}
           src={img}
           alt={`${banner.title} ${i + 1}`}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === currentIndex ? "opacity-100" : "opacity-0"}`}
+          onError={() => setImgError(true)}
         />
       ))}
+      {imgError && (
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-700 to-zinc-800 flex items-center justify-center">
+          <span className="text-zinc-400 text-sm">Imagen no disponible</span>
+        </div>
+      )}
       <div className={`absolute inset-0 bg-gradient-to-b ${banner.gradient} opacity-80 group-hover:opacity-100 transition-opacity duration-500`} />
       <div className="absolute inset-0 bg-black/20" />
       <div className="absolute bottom-6 left-6 right-6">
