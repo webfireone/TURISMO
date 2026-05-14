@@ -155,7 +155,7 @@ function HeroSection() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="relative min-h-[70vh] flex items-center justify-center overflow-hidden rounded-3xl hero-grid">
+      className="relative min-h-[50vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden rounded-3xl hero-grid">
       <RotatingHero />
       <div className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/50 to-background" />
       <div className="relative z-10 text-center max-w-3xl mx-auto px-6 py-20">
