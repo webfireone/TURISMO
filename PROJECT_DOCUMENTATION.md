@@ -113,6 +113,13 @@ src/
   - Intervalo del hero: 5s → 12s
   - Transición: 1.5s → 5s
 - **Stats en Landing**: Agregada sección con 15+ años, 50K+ viajeros, 150+ destinos, 24/7
+- **Footer**: Agregado pie de página con datos de empresa, contacto, enlaces, redes sociales
+- **Scroll**: Configurado Lenis con duration 1.2, touchMultiplier 1.5, soporte prefers-reduced-motion
+- **Spacing**: Aumentado padding entre secciones de landing (py-24, py-28)
+- **Hero rotation**: 120s por imagen (antes 12s)
+- **Imágenes**: `decoding="async"`, `will-change: opacity`, transición 2s
+- **DestinosView**: Reemplazadas imágenes placeholder (`placehold.co`) con imágenes reales de paquetes. Agregados gradientes por destino, descripciones informativas, países, rango de precios, badges de tags
+- **ItineraryView**: Rediseño con línea de timeline vertical, indicador de progreso (días totales), conectores visuales entre días, gradiente superior en cards, diseño más limpio
   - Fondo: #0d0d1a → #0a0a0b
   - Texto: #e8e8f0 → #fafafa
   - Cards: #161627 → #121214
@@ -263,5 +270,5 @@ Render estático configurado via `render.yaml`.
 
 ---
 
-*Última actualización: 2026-05-13*
+*Última actualización: 2026-05-14*
 *Proyecto: SI VIAJES - Agencia de Viajes*
