@@ -13,6 +13,7 @@ Aplicación web de paquetes turísticos con reservas, carrito de compras, dashbo
 - **Build**: ✅ Pasa con 0 errores TypeScript
 - **GitHub**: https://github.com/webfireone/TURISMO
 - **Dev Server**: localhost:5174
+- **Deploy**: Render (estático via render.yaml), build command `npm run build`, publish `dist/`
 
 ---
 
@@ -38,7 +39,7 @@ src/
 │   ├── catalog/       # Vista de catálogo con filtros (CatalogView.tsx)
 │   ├── config/        # Formulario de parámetros globales
 │   ├── dashboard/     # KPIs, gráficos, tarjetas, PageHero/Decorative3D
-│   ├── destinations/  # Vista de destinos e itinerarios
+│   ├── destinations/  # DestinosView (cards por destino) e ItineraryView (timeline)
 │   ├── import-export/ # Diálogos de import/export CSV/Excel/Web
 │   ├── layout/        # AppLayout, Header, Sidebar, Logo, SmoothScroll
 │   ├── packages/      # PackageCard, PackageForm, PackageManager
@@ -64,8 +65,8 @@ src/
 | `/catalog` | Catálogo de paquetes | Público |
 | `/package/:id` | Detalle de paquete | Público |
 | `/cart` | Carrito de reservas | Público |
-| `/destinations` | Destinos | Público |
-| `/itineraries` | Itinerarios día a día | Público |
+| `/destinations` | Destinos (cards por zona) | Público |
+| `/itineraries` | Itinerarios día a día por destino/paquete | Público |
 | `/contact` | Contacto | Público |
 | `/login` | Login/Register | Público |
 | `/admin` | Admin Home | Admin |
@@ -99,71 +100,43 @@ src/
 
 ## ✅ FIXES Y ACTUALIZACIONES REALIZADAS
 
-### 2026-05-13 - Sesión de Trabajo
+### Sesión 2026-05-13
+- **Menú mobile**: Botones `<button>` → `<a>` para respuesta táctil
+- **Hero**: Intervalo 5s → 120s, transición 1.5s → 5s
+- **Paleta oscura**: #0d0d1a → #0a0a0b, texto #e8e8f0 → #fafafa, cards #161627 → #121214
+- **Stats en Landing**: 15+ años, 50K+ viajeros, 150+ destinos, 24/7
+- **Footer**: Datos de empresa, contacto, enlaces, redes sociales, copyright
+- **Lenis smooth scroll**: duration 1.2, touchMultiplier 1.5, prefers-reduced-motion
+- **Imágenes paquetes**: Wikimedia → Unsplash/Pexels con fallback gradiente
+- **Galería detalles**: Sección "Más imágenes" con grid 4 columnas
+- **Catálogo**: Grid uniforme sin cards hero/tall, ordenamiento (destacados/precio/nombre/destino)
+- **3 paquetes nuevos**: Italia Clásica, España Vibrante, Francia Encantadora
+- **Botón X**: En PackageDetailPage para cerrar vista
+- **Ordenamiento**: Destacados → menor precio por defecto
 
-#### Commit Reciente (d8b167a)
-- **Fecha**: 2026-05-13
-- **Mensaje**: "fix: use anchor tags for mobile nav"
-- **Cambio**: Botones del menú mobile cambiados a etiquetas `<a>`
+### Sesión 2026-05-14
 
-#### Commit Reciente (nuevo)
-- **Fecha**: 2026-05-13
-- **Mensaje**: "feat: slower hero transition + darker palette"
-- **Cambios**: 
-  - Intervalo del hero: 5s → 12s
-  - Transición: 1.5s → 5s
-- **Stats en Landing**: Agregada sección con 15+ años, 50K+ viajeros, 150+ destinos, 24/7
-- **Footer**: Agregado pie de página con datos de empresa, contacto, enlaces, redes sociales
-- **Scroll**: Configurado Lenis con duration 1.2, touchMultiplier 1.5, soporte prefers-reduced-motion
-- **Spacing**: Aumentado padding entre secciones de landing (py-24, py-28)
-- **Hero rotation**: 120s por imagen (antes 12s)
-- **Imágenes**: `decoding="async"`, `will-change: opacity`, transición 2s
-- **DestinosView**: Reemplazadas imágenes placeholder (`placehold.co`) con imágenes reales de paquetes. Agregados gradientes por destino, descripciones informativas, países, rango de precios, badges de tags
-- **ItineraryView**: Rediseño con línea de timeline vertical, indicador de progreso (días totales), conectores visuales entre días, gradiente superior en cards, diseño más limpio
-  - Fondo: #0d0d1a → #0a0a0b
-  - Texto: #e8e8f0 → #fafafa
-  - Cards: #161627 → #121214
+#### DestinosView (`src/components/destinations/DestinationsView.tsx`)
+- Reemplazadas imágenes placeholder `placehold.co` con imágenes reales de paquetes
+- Gradientes por destino: Caribe (cyan), Europa (rose), Sudamérica (emerald), Nacional (green), etc.
+- Descripciones informativas por zona geográfica
+- Muestra países disponibles, rango de precios (min–max), badges de tags
+- Grid responsivo 1–4 columnas
 
-#### 1. Imágenes de Paquetes
-- **Problema**: Imágenes de Wikimedia no cargaban
-- **Solución**: Cambiadas todas a URLs de Unsplash/Pexels
-- **Archivos**: `src/lib/constants.ts`
-- **Nota**: Agregado fallback con gradiente de color cuando imagen no carga
+#### ItineraryView (`src/components/destinations/ItineraryView.tsx`)
+- Rediseño completo con línea de timeline vertical conectando días
+- Indicador de progreso "X días de viaje" con barra gradient
+- Círculos conector en cada punto del timeline
+- Gradiente decorativo en borde superior de cada card
+- Diseño más limpio con mejor espaciado
 
-#### 2. Galería de Imágenes en Detalles
-- **Problema**: Solo se mostraba la imagen principal
-- **Solución**: Agregada sección "Más imágenes" con grid de 4 columnas
-- **Archivos**: `src/pages/PackageDetailPage.tsx`
-- **Nota**: Muestra 4 imágenes adicionales por paquete
+#### ItinerariosPage (`src/pages/ItinerariesPage.tsx`)
+- Agrupación por destino: 1 tab único por destino con contador (ej. "Europa (4)")
+- Sub-filtro en pills para elegir paquete específico dentro del destino
+- Eliminados tabs duplicados (antes se repetía "Europa" ×4)
 
-#### 3. Layout del Catálogo
-- **Problema**: Tarjetas de diferentes tamaños, filas desiguales
-- **Solución**: Unificadas todas las tarjetas al mismo tamaño
-- **Archivos**: `src/components/catalog/CatalogView.tsx`
-- **Nota**: Grid 4 columnas desktop, 2 mobile
-
-#### 4. Menú Mobile
-- **Problema**: Botones "Paquetes" y "Destinos" no funcionaban en mobile
-- **Solución**: Cambiados de `<button>` a `<a>` para mejor respuesta táctil
-- **Archivos**: `src/components/layout/Header.tsx`
-- **Estado**: ⚠️ Pendiente de verificación
-
-#### 5. Paquetes Nuevos
-- **Problema**: Necesitaban más destinos europeos
-- **Solución**: Agregados 3 paquetes nuevos (Italia, España, Francia)
-- **Archivos**: `src/lib/constants.ts`
-- **Nota**: Total ahora es 11 paquetes
-
-#### 6. Botón X en Página de Detalles
-- **Problema**: No había forma rápida de cerrar la vista de paquete
-- **Solución**: Agregado botón X en esquina superior derecha
-- **Archivos**: `src/pages/PackageDetailPage.tsx`
-
-#### 7. Ordenamiento del Catálogo
-- **Problema**: Sin orden por defecto
-- **Solución**: Por defecto muestra destacados primero, luego menor precio
-- **Archivos**: `src/components/catalog/CatalogView.tsx`
-- **Opciones**: Destacados, Menor precio, Mayor precio, Nombre, Destino
+#### Deploy fix
+- Eliminado parámetro `index` no usado en `ItineraryView.tsx` que rompía el build de Render
 
 ---
 
@@ -210,7 +183,7 @@ npm install
 npm run dev
 
 # Build producción
-npm run build
+npm run build      # tsc -b && vite build
 
 # Linter
 npm run lint
@@ -226,6 +199,7 @@ npm run preview
 Render estático configurado via `render.yaml`. 
 - Build command: `npm run build`
 - Publish directory: `dist`
+- **Importante**: El build de Render ejecuta `tsc -b && vite build`. Cualquier error TS lo rompe.
 
 ---
 
@@ -238,15 +212,32 @@ Render estático configurado via `render.yaml`.
 3. **Imágenes**: Usar Unsplash/Pexels con parámetros `?w=800&q=80`
 4. **Tailwind v4**: Usar variables CSS nativas, no Tailwind config
 5. **Componentes**: Lucide para iconos, Shadcn para UI base
+6. **Build de Render**: Corre `tsc -b && vite build` — TS strict, no dejar parámetros no usados
+7. **Commits**: Actualizar PROJECT_DOCUMENTATION.md antes de cada commit
 
 ### Estructura de datos:
-- `TravelPackage` tiene: `id`, `name`, `destination`, `country`, `duration`, `accommodation`, `price`, `previousPrice`, `description`, `includes`, `excludes`, `itinerary`, `imageUrl`, `images[]`, `maxCapacity`, `availableSpots`, `tags[]`, `featured`, `status`
+- `TravelPackage`: `id`, `name`, `destination`, `country`, `duration`, `accommodation`, `price`, `previousPrice`, `description`, `includes`, `excludes`, `itinerary[]`, `imageUrl`, `images[]`, `maxCapacity`, `availableSpots`, `tags[]`, `featured`, `status`
+- `ItineraryDay`: `day`, `title`, `description`, `activities[]`, `meals[]`, `accommodation`
 
 ### Pages clave:
 - LandingPage: `src/pages/LandingPage.tsx`
 - Catálogo: `src/pages/CatalogPage.tsx` → `CatalogView.tsx`
 - Detalles: `src/pages/PackageDetailPage.tsx`
+- Destinos: `src/pages/DestinationsPage.tsx` → `DestinationsView.tsx`
+- Itinerarios: `src/pages/ItinerariesPage.tsx` → `ItineraryView.tsx`
 - Header: `src/components/layout/Header.tsx`
+
+### Historial de commits (main):
+```
+87b0d70 feat: group itineraries by destination with sub-filter for multiple packages
+f48935b fix: remove unused index parameter in ItineraryView
+547af78 feat: improve Destinos page with real images and Itinerarios with timeline UI
+d329051 feat: add stats section to landing page
+db4a16b feat: slower hero transition (12s interval, 5s fade)
+8bd31df feat: slower hero transition + darker palette
+d8b167a fix: use anchor tags for mobile nav
+2719b73 fix: improve mobile menu click handling
+```
 
 ---
 
