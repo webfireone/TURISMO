@@ -78,7 +78,7 @@ function RotatingHero() {
   }, [])
 
   return (
-    <div className="absolute inset-0">
+    <div className="absolute inset-0 pointer-events-none">
       <div className="absolute inset-0 bg-gradient-to-r from-sky-900 via-purple-900 to-slate-900" />
       {HERO_IMAGES.map((img, i) => (
         <div
@@ -89,7 +89,7 @@ function RotatingHero() {
           <img 
             src={img} 
             alt="Destino" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover pointer-events-auto"
             loading={i === 0 ? "eager" : "lazy"}
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />

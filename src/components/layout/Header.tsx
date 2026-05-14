@@ -48,7 +48,7 @@ export function Header() {
   const showBanner = !isAdmin && params.announcement.enabled && params.announcement.text
 
   return (
-    <header className={cn("sticky top-0 z-50 transition-all duration-500", scrolled ? "shadow-[0_8px_32px_rgba(14,165,233,0.12)]" : "")}>
+    <header className={cn("sticky top-0 z-[100] transition-all duration-500", scrolled ? "shadow-[0_8px_32px_rgba(14,165,233,0.12)]" : "")}>
       {showBanner && (
         <div className="relative overflow-hidden bg-foreground text-background py-2">
           <div className="absolute inset-0 bg-gradient-to-r from-sky-600/20 via-cyan-600/20 to-sky-600/20" />
