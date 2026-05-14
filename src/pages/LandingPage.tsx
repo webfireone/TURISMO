@@ -220,29 +220,6 @@ export function LandingPage() {
         <HeroSection />
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 pt-16 pb-8">
-        <StaggerReveal variant="slide-left" stagger={0.06} duration={0.5} threshold={0.2}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5"
-        >
-          {[
-            { icon: Shield, title: "Seguro", desc: "Viajá protegido" },
-            { icon: CreditCard, title: "3 cuotas", desc: "sin interés" },
-            { icon: Headphones, title: "Acompañamiento", desc: "24/7" },
-            { icon: Globe2, title: "Destinos", desc: "en todo el mundo" },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex items-center gap-4 p-5 hover:bg-white/[0.03] transition-colors duration-300">
-              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
-                <Icon className="h-4 w-4 text-white/40" />
-              </div>
-              <div>
-                <p className="text-xs font-medium text-white/60">{title}</p>
-                <p className="text-[10px] text-white/20 mt-0.5">{desc}</p>
-              </div>
-            </div>
-          ))}
-        </StaggerReveal>
-      </section>
-
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
           <Reveal variant="blur-in" duration={0.8} className="text-[10px] font-semibold tracking-[0.4em] uppercase text-white/20 mb-4">Destinos Populares</Reveal>
@@ -262,7 +239,7 @@ export function LandingPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-6 pb-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {testimonials.map((t, i) => (
             <div key={i} className="p-5 rounded-2xl bg-card/50 border border-primary/10">
               <div className="flex gap-1 mb-3">
@@ -282,6 +259,26 @@ export function LandingPage() {
             </div>
           ))}
         </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+          {[
+            { icon: Shield, title: "Seguro", desc: "Viajá protegido" },
+            { icon: CreditCard, title: "3 cuotas", desc: "sin interés" },
+            { icon: Headphones, title: "Acompañamiento", desc: "24/7" },
+            { icon: Globe2, title: "Destinos", desc: "en todo el mundo" },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex items-center gap-3 p-4 rounded-xl bg-card/50 border border-primary/10 hover:border-primary/20 transition-colors">
+              <div className="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                <Icon className="h-3.5 w-3.5 text-primary" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-foreground">{title}</p>
+                <p className="text-[9px] text-muted-foreground">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
         <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-8 md:p-12">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
